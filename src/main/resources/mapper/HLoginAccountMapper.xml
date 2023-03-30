@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ticket.mapper.HLoginAccountMapper">
+
+    <select id="getSLoginAccountSelect" resultType="com.ticket.entity.SLoginAccount">
+
+        SELECT
+        t1.id,
+        t1.h_server_area_id,
+        t1.username,
+        t1.role,
+        t1.STATUS,
+        t1.last_login_datetime,
+        t1.remark,
+        t1.create_time,
+        t1.modify_time,
+        t2.server_area_name
+        FROM
+        s_login_account AS t1
+        LEFT JOIN h_server_area AS t2 ON t2.id = t1.h_server_area_id
+        <where>
+            <if test="param1.hServerAreaId != null and param1.hServerAreaId != 0 ">
+                AND t1.h_server_area_id = #{param1.hServerAreaId}
+            </if>
+            <if test="param1.username != null and param1.username!='' ">
+                AND t1.username like '%${param1.username}%'
+            </if>
+            <if test="param1.role != null  ">
+                AND t1.role = #{param1.role}
+            </if>
+        </where>
+
+    </select>
+</mapper>

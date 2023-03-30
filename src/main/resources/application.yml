@@ -1,0 +1,51 @@
+server:
+  port: 3010
+  servlet:
+    context-path: /ticket-manage
+  tomcat:
+    uri-encoding: utf-8
+    connection-timeout: 30000
+    keep-alive-timeout: 30000
+spring:
+  application:
+    name: com-ticket-manage
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+mybatis-plus:
+  # 实体类扫描路径
+  type-aliases-package: com.ticket.manage.entity
+  # xml 扫描路径
+  mapper-locations: classpath:mapper/**/*.xml
+  global-config:
+    # 关闭 mybatis-plus的 banner
+    banner: false
+    db-config:
+      update-strategy: 'ignored'
+  #原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'
+
+# log setting
+logging:
+  config: classpath:logback-spring.xml
+
+# 自定义 JWT key
+jwt:
+  # JWT存储的请求头
+  # tokenHeader: Authorization
+  tokenHeader: ticketManageToken
+  # JWT加解密使用的密钥
+  secret: 7FB5DF6B5A401F55CCF4BB6E32BB824Ec7fb57b48919e30f893bc9bd3387a1401fcd551abb41a526ca223dd4f15509b7[com.ticket]
+  # JWT的超期限时间(秒)(60*60*24=86400 一天)
+  expirationTime: 1800
+  # 存储在redis中的时间(秒)
+  redisSaveTime: 1800
+  # 同一个账户多个token，true表示同一账户多点登录
+  oneAccountMoreToken: true

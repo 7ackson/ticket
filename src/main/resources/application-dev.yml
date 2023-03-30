@@ -1,0 +1,67 @@
+spring:
+  #上传文件大小限制
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    hikari:
+      connection-timeout: 30000 #等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 默认:30秒
+      max-lifetime: 1800000     #连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认:30分钟 1800000ms
+      max-pool-size: 15         #最大连接数
+      min-idle: 5               #最小连接数
+      connection-test-query: select 1
+      pool-name: ticketManageHikariCP   #连接池名字
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://10.0.0.88:7776/ticket_v1_zzetyy?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+  # redis相关配置
+  redis:
+    open: false  # 是否开启redis缓存  true开启   false关闭
+    # Redis数据库索引（默认为 0）
+    database: 0
+    # Redis服务器地址
+    host: 10.0.0.88
+    # Redis服务器连接端口
+    port: 6379
+    # Redis 密码
+    password: 123456
+    # 连接超时时间（毫秒）
+    timeout: 5000
+    # 连接池配置
+    jedis:
+      pool:
+        # 连接池中的最小空闲连接
+        min-idle: 8
+        # 连接池中的最大空闲连接
+        max-idle: 500
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 2000
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+
+  # 线程池配置
+  task:
+    execution:
+      thread-name-prefix: myExecutor-
+      pool:
+        core-size: 8
+        max-size: 128
+        queue-capacity: 256
+        keep-alive: 60
+
+springdoc:
+  swagger-ui:
+    path: /doc.html
+    doc-expansion: none
+    display-request-duration: true
+#    operationsSorter: method
+    operations-sorter: alpha
+    tagsSorter: alpha
+    disable-swagger-default-url: true
+    use-root-path: true
+  api-docs:
+    enabled: true
+  packages-to-scan: com.ticket.controller

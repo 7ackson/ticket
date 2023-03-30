@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ticket.mapper.TTicketMapper">
+
+    <resultMap id="BaseResultMap" type="com.ticket.entity.TTicket">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="ticketName" column="ticket_name" jdbcType="VARCHAR"/>
+            <result property="money" column="money" jdbcType="INTEGER"/>
+            <result property="result" column="result" jdbcType="VARCHAR"/>
+            <result property="award" column="award" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,ticket_name,money,
+        result,award,status,
+        create_time,modify_time,remark
+    </sql>
+</mapper>
